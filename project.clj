@@ -6,12 +6,12 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure                "1.3.0"]
                  [com.googlecode.disruptor/disruptor "2.8"]]
-  :profiles {:1.4 {:dependencies [[org.clojure/clojure "1.4.0-beta5"]]}}
+  :profiles {:1.4 {:dependencies [[org.clojure/clojure "1.4.0"]]}}
   :aliases { "all" ["with-profile" "dev:dev,1.4"] }
   :source-paths      ["src/clojure"]
   :java-source-paths ["src/java"]
-  :repositories {"clojure-releases" "http://build.clojure.org/releases",
-                 "sonatype" {:url "http://oss.sonatype.org/content/repositories/releases",
-                             :snapshots false,
-                             :releases {:checksum :fail, :update :always}}}
+  :repositories {"clojure-releases" "http://build.clojure.org/releases"
+                 "sonatype" {:url "http://oss.sonatype.org/content/repositories/releases"
+                             :snapshots false
+                             :releases {:checksum :fail :update :always}}}
   :warn-on-reflection true)

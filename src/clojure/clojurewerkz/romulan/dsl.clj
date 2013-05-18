@@ -92,3 +92,12 @@
      (Disruptor. (event-factory ef) ring-buffer-size executor))
   ([ef ^ExecutorService executor ^ClaimStrategy cs ^WaitStrategy ws]
      (Disruptor. (event-factory ef) executor cs ws)))
+
+
+(defn ^com.lmax.disruptor.dsl.EventHandlerGroup handlers
+  [^Disruptor d xs]
+  (.handleEventsWith d (into-array EventHandler (map event-handler xs))))
+
+(defn ^com.lmax.disruptor.dsl.EventHandlerGroup then
+  [^EventHandlerGroup g xs]
+  (.then g (into-array EventHandler (map event-handler xs))))

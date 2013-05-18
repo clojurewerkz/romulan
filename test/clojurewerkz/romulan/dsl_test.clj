@@ -73,3 +73,23 @@
       (.publishEvent d et))
     (.await latch)
     (.shutdown d)))
+
+(deftest test-publishing-and-handling-events-using-java-interop-example2
+  (let [n      87
+        latch1 (CountDownLatch. n)
+        latch2 (CountDownLatch. n)
+        eh1    (event-handler (fn [event sequence end-of-batch?]
+                                (.countDown latch1)))
+        eh2    (event-handler (fn [event sequence end-of-batch?]
+                                (.countDown latch2)))        
+        et     (event-translator (fn [x _]
+                                   x))
+        ^Disruptor d  (disruptor (constantly 99)
+                                 256
+                                 (Executors/newFixedThreadPool 2))]
+    (-> d (handle-events-with eh1 eh2))
+    (.start d)
+    (dotimes [i n]
+      (.publishEvent d et))
+    (.await latch)
+    (.shutdown d)))
